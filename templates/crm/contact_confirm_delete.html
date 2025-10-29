@@ -1,0 +1,32 @@
+{% extends 'crm/base.html' %}
+{% block content %}
+<div style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+">
+    <div style="
+        background-color: rgb(86, 130, 152);
+        padding: 30px 40px;
+        border-radius: 12px;
+        text-align: center;
+        color: whitesmoke;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        max-width: 400px;
+        width: 90%;
+    ">
+        <h2 style="margin-bottom: 20px; color: black;">Confirm Delete</h2>
+        <p style="font-weight: bold; margin-bottom: 25px; color: black;">
+            Are you sure you want to delete <strong>{{ contact }}</strong>?
+        </p>
+        <form method="post" style="display: flex; gap: 10px; justify-content: center;color:grey;">
+            {% csrf_token %}
+            <button class="btn btn-dark" type="submit" style="color: whitesmoke; font-weight: bold;" title="Delete">
+                <i class="bi bi-trash"></i>
+            </button>
+            <a href="{% url 'contact_list' %}" class="btn btn-dark" style="color: whitesmoke; font-weight: bold;">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

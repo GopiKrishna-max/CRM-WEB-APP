@@ -1,0 +1,129 @@
+{% extends 'crm/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+  input {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .signup-bg {
+    background-image: url({% static 'images/signup.jpg' %});
+    height: 100vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .signup-box {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    color: black;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .signup-box h2 {
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .signup-box a {
+    color: #00bfff;
+    font-weight: 500;
+  }
+
+  .signup-box a:hover {
+    text-decoration: underline;
+  }
+
+  .password-wrapper {
+    position: relative;
+  }
+
+  .password-wrapper span {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color:black;
+    font-size: 18px;
+  }
+</style>
+
+<div class="signup-bg">
+  <div class="signup-box">
+    <h2 style="color: black;">SIGN UP</h2>
+
+    <form method="post" class="mt-3">
+      {% csrf_token %}
+
+      <div class="mb-3" style="text-align: left;">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+      </div>
+
+      <div class="mb-3" style="text-align: left;">
+        {{ form.password1.label_tag }}
+        <div class="password-wrapper">
+          {{ form.password1 }}
+          <span class="toggle-password"><i class="fa-solid fa-eye"></i></span>
+        </div>
+      </div>
+
+      <div class="mb-3" style="text-align: left;">
+        {{ form.password2.label_tag }}
+        <div class="password-wrapper">
+          {{ form.password2 }}
+          <span class="toggle-password"><i class="fa-solid fa-eye"></i></span>
+        </div>
+      </div>
+
+      <button class="btn btn-success w-100 mt-2" type="submit" style="color: black;font-weight: bold;">Create account</button>
+    </form>
+
+    <p class="mt-3">Already have an account? 
+      <a href="{% url 'login' %}" style="color: black;font-weight: bold;">Login</a>
+    </p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+<script>
+  const togglePasswordIcons = document.querySelectorAll('.toggle-password');
+
+  togglePasswordIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+      const input = this.previousElementSibling;
+      const eyeIcon = this.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    });
+  });
+</script>
+
+{% endblock %}
